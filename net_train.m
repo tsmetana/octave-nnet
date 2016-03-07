@@ -1,6 +1,6 @@
 # creates a new trained network
 function net = net_train(ifile)
-  [in_val out_val] = load_fdata(ifile)
+  [in_val out_val] = load_fdata(ifile);
   if length(in_val) != length(out_val)
     error("Data length and label lenght differ")
   endif
@@ -8,5 +8,6 @@ function net = net_train(ifile)
   topology = [2 2 1];
   net = newff(limits, topology, {"tansig", "tansig", "purelin"},
         "trainlm", "learngdm", "mse");
+  net.trainParam.epochs = 500;
   net = train(net, in_val, out_val);
 endfunction
